@@ -7,6 +7,9 @@ class FilenameToClipboardCommand(sublime_plugin.TextCommand):
     def spec(self, s):
       return s if s.find("spec/") == -1 else s[s.find('spec'):]
 
+    def test(self, s):
+      return s if s.find("test/") == -1 else s[s.find('test'):]
+
     def migrate(self, s):
       return s if s.find("migrate/") == -1 else s.split("/")[-1].split("_")[0]
 
@@ -14,4 +17,5 @@ class FilenameToClipboardCommand(sublime_plugin.TextCommand):
       s = str(self.view.file_name())
       s = self.migrate(s)
       s = self.spec(s)
+      s = self.test(s)
       sublime.set_clipboard(s)
